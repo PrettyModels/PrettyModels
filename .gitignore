@@ -2,6 +2,7 @@
 /shelf/
 
 tutorials/python/api_root.py
+tutorials/R/api_root.R
 
 # file extensions
 *.csv
