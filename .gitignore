@@ -1,0 +1,8 @@
+# Default ignored files
+/shelf/
+
+tutorials/python/api_root.py
+
+# file extensions
+*.csv
+*.xml
