@@ -2,9 +2,14 @@ import os
 import requests
 import pandas as pd
 
-# Define the API root URL
-api_root = "www.enter-url-to-api.com"
-from api_root import api_root
+# Define base_product_url, primary_api_key, and secondary_api_key
+# Retrieve from API portal under Product catalog / Takahashi Alexander - Authentication
+base_product_url = "https://base-product-url.app"
+primary_api_key = "needed-for-authentication"
+secondary_api_key = "needed-for-authentication"
+
+# from api_root import primary_api_key, secondary_api_key, base_product_url
+
 
 # TAKAHASHI ALEXANDER (2002) MODEL
 model = "ta_02"
@@ -45,22 +50,33 @@ request_body_commitment_planner = {
 
 for endpoint in endpoints:
     # Build API URL
-    url = os.path.join(api_root, model, endpoint)
+    url = os.path.join(base_product_url, model, endpoint)
 
-    # Send the POST request
+    # Select correct request_body
     if endpoint == "cash_flow_expectations":
         request_body = request_body_cash_flow_expectations
     elif endpoint == "commitment_planner":
         request_body = request_body_commitment_planner
     else:
         raise ValueError(f"endpoint {endpoint} not defined.")
-    response = requests.post(url, json=request_body)
+
+    # Set header for authentication
+    headers = {"X-BLOBR-KEY": primary_api_key}
+
+    # Send the POST request
+    response = requests.post(url, json=request_body, headers=headers)
+
+    if response.status_code == 401:
+        # needed for API Key Rotation
+        # More info: https://www.blobr.io/post/api-keys-best-practices
+        headers = {"X-BLOBR-KEY": secondary_api_key}
+        response = requests.post(url, json=request_body, headers=headers)
 
     # Check the response status code
     if response.status_code == 200:
         # Request was successful
         print(f"POST request successful: {url}")
-        print("Response JSON:", response.json())
+        # print("Response JSON:", response.json())
     else:
         # Request failed
         print("POST request failed with status code:", response.status_code)
