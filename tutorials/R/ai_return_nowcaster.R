@@ -11,14 +11,24 @@ if (!require("httr", quietly = TRUE)) {
   install.packages("httr")
 }
 
-# Define the API URL -----
-source("api_root.R")
+# Set API Base URL & API keys -----
 
+base_product_url <- "https://base-product-url.app"
+primary_api_key <- "needed-for-authentication"
+secondary_api_key <- "needed-for-authentication"
+
+# source("api_root.R")
+
+
+# Send API requests ----
 # Retrieve available fund_segments and macro_environments
-post_request <- httr::GET(url = paste0(api_root, "common/fund_segments"))
+post_request <- httr::GET(
+  url = paste0(base_product_url, "common/fund_segments"),
+  add_headers(.headers = c("X-BLOBR-KEY" = primary_api_key))
+  )
 fund_segments <- unlist(content(post_request, "parsed"))
 print(fund_segments)
-post_request <- httr::GET(url = paste0(api_root, "common/macro_environments"))
+post_request <- httr::GET(url = paste0(base_product_url, "common/macro_environments"))
 macro_environments <- unlist(content(post_request, "parsed"))
 print(macro_environments)
 
@@ -55,17 +65,15 @@ download.air.nowcast <- function(endpoint) {
   }
   
   # Build API URL
-  api_url <- paste0(api_root, endpoint)
+  api_url <- paste0(base_product_url, endpoint)
   
   # Create the POST request
-  post_request <- httr::POST(url = api_url,
+  post_request <- httr::POST(api_url,
+                             add_headers(.headers = c("X-BLOBR-KEY" = primary_api_key)),
                              body = request_body,
                              encode = "json")
   print(post_request)
   
-  # OPTIONAL: add header
-  #post_request <- post_request %>%
-  #  add_headers(Authorization = "Bearer YourAuthToken")
   
   # Send the POST Request:
   response <- httr::content(post_request, "parsed")

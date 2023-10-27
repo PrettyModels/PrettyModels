@@ -1,6 +1,6 @@
-##############################+#############
-# Plot Cash Flow Terminator Endpoint Results
-############################################
+##############################+############
+# Plot Deal Exit Simulator Endpoint Results
+###########################################
 # Initialize ----
 if(sys.nframe() == 0L) rm(list = ls())
 setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
@@ -23,9 +23,9 @@ secondary_api_key <- "needed-for-authentication"
 
 # Choose one of these three endpoints
 endpoints = list(
-  "cft_23/user_assumptions/cash_flow_quantiles?quantile=0.5",
-  "cft_23/user_assumptions/cash_flow_paths",
-  "cft_23/user_assumptions/cash_flow_expectations"
+  "tbs_22/cash_flow_quantiles?quantile=0.5",
+  "tbs_22/cash_flow_expectations",
+  "tbs_22/cash_flow_paths"
 )
 
 # Define the request body
@@ -38,23 +38,14 @@ print(macro_environments)
 
 request_body <- list(
   fund_segment = fund_segments[1],
-  start_age = 0,
   macro_environment = macro_environments[1],
-  cum_contributions = 0,
-  cum_distributions = 0,
-  net_cash_flow = 0,
-  nav = 0,
-  commitment = 100,
-  open_commitment = 100,
-  annualized_alpha = 0,
-  overdraw_percentage = 0,
-  recallable_percentage = 0,
-  recallable = 0,
-  expected_investment_period = 5,
-  expected_fund_age = 12
+  deal_age = 0,
+  fund_age_at_entry = 0,
+  current_deal_fmv = 1,
+  current_deal_rvpi = 1
 )
 
-download.plot.cft <- function(endpoint) {
+download.plot.tbs_22 <- function(endpoint) {
   
   # Build API URL
   api_url <- paste0(base_product_url, endpoint)
@@ -66,32 +57,38 @@ download.plot.cft <- function(endpoint) {
                              encode = "json")
   print(post_request)
   
-  # OPTIONAL: add header
-  #post_request <- post_request %>%
-  #  add_headers(Authorization = "Bearer YourAuthToken")
-  
   # Send the POST Request:
   response <- httr::content(post_request, "parsed")
-  print(response)
+  # print(response)
   
   # Convert to data.frame
   df <- data.frame(lapply(response, unlist))
   
-  # Plot data.fame containing results
-  matplot(
-    rownames(df), df, 
-    type = "l", lty = 1, 
-    xlab = "Time", ylab = "Value", 
-    col = 1:ncol(df), lwd=2,
-    main=endpoint
+  if (endpoint == "tbs_22/cash_flow_paths") {
+    # Scatter Plot
+    plot(df$timing, df$multiple, pch=20, 
+         xlab = "Exit Time", ylab = "Exit Multiple",
+         main=endpoint)
+  } else {
+    df <- data.frame(t(df))
+    rownames(df) <- as.numeric(sub("X", "", rownames(df)))
+    
+    # Plot data.fame containing results
+    matplot(
+      rownames(df), df, 
+      type = "l", lty = 1, 
+      xlab = "Time (in years)", ylab = "Cash Flow", 
+      col = 1:ncol(df), lwd=2,
+      main=endpoint
     )
-  legend(
-    "bottomright", bty="n", legend = colnames(df), 
+    legend(
+      "right", bty="n", legend = "cumulative cash flow", 
       col = 1:ncol(df), lty=1, cex=0.5, lwd=2
     )
-  abline(h=0, col="grey", lty=3, lwd=2)
-  
+    abline(h=0, col="grey", lty=3, lwd=2)
+  }
+
   return(df)
 }
 
-for (endpoint in endpoints) df <- download.plot.cft(endpoint)
+for (endpoint in endpoints) df <- download.plot.tbs_22(endpoint)

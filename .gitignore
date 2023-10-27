@@ -7,3 +7,4 @@ tutorials/R/api_root.R
 # file extensions
 *.csv
 *.xml
+*.iml
