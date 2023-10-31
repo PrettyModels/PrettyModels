@@ -3,8 +3,11 @@ import requests
 import pandas as pd
 
 # Define the API root URL
-api_root = "www.enter-url-to-api.com"
-from api_root import api_root
+base_product_url = "https://base-product-url.app"
+primary_api_key = "needed-for-authentication"
+secondary_api_key = "needed-for-authentication"
+
+from api_root import primary_api_key, secondary_api_key, base_product_url
 
 # AI RETURN NOWCASTER MODEL
 model = "air_nowcaster"
@@ -16,9 +19,11 @@ endpoints = [
 ]
 
 # Define the data to be sent in the request body (as a dictionary)
-fund_segments = requests.get(os.path.join(api_root, "common/fund_segments"))
+fund_segments = requests.get(os.path.join(base_product_url, "common/fund_segments"))
 print("fund_segments", fund_segments.json())
-macro_environments = requests.get(os.path.join(api_root, "common/macro_environments"))
+macro_environments = requests.get(
+    os.path.join(base_product_url, "common/macro_environments")
+)
 print("macro_environments", macro_environments.json())
 
 request_body_short_term_return_nowcast = {
@@ -45,7 +50,7 @@ request_body_nav_discount = {
 
 for endpoint in endpoints:
     # Build API URL
-    url = os.path.join(api_root, model, endpoint)
+    url = os.path.join(base_product_url, model, endpoint)
 
     # Send the POST request
     if endpoint == "short_term_return_nowcast":
@@ -56,13 +61,24 @@ for endpoint in endpoints:
         request_body = request_body_nav_discount
     else:
         raise ValueError(f"endpoint {endpoint} not defined.")
-    response = requests.post(url, json=request_body)
+
+    # Set header for authentication
+    headers = {"X-BLOBR-KEY": primary_api_key}
+
+    # Send the POST request
+    response = requests.post(url, json=request_body, headers=headers)
+
+    if response.status_code == 401:
+        # needed for API Key Rotation
+        # More info: https://www.blobr.io/post/api-keys-best-practices
+        headers = {"X-BLOBR-KEY": secondary_api_key}
+        response = requests.post(url, json=request_body, headers=headers)
 
     # Check the response status code
     if response.status_code == 200:
         # Request was successful
         print(f"POST request successful: {url}")
-        print("Response JSON:", response.json())
+        # print("Response JSON:", response.json())
     else:
         # Request failed
         print("POST request failed with status code:", response.status_code)

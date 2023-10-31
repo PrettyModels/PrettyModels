@@ -3,8 +3,11 @@ import requests
 import pandas as pd
 
 # Define the API root URL
-api_root = "www.enter-url-to-api.com"
-from api_root import api_root
+base_product_url = "https://base-product-url.app"
+primary_api_key = "needed-for-authentication"
+secondary_api_key = "needed-for-authentication"
+
+from api_root import base_product_url, primary_api_key, secondary_api_key
 
 # DEAL EXIT SIMULATOR MODEL
 model = "tbs_22"
@@ -18,9 +21,11 @@ endpoints = [
 ]
 
 # Define the data to be sent in the request body (as a dictionary)
-fund_segments = requests.get(os.path.join(api_root, "common/fund_segments"))
+fund_segments = requests.get(os.path.join(base_product_url, "common/fund_segments"))
 print("fund_segments", fund_segments.json())
-macro_environments = requests.get(os.path.join(api_root, "common/macro_environments"))
+macro_environments = requests.get(
+    os.path.join(base_product_url, "common/macro_environments")
+)
 print("macro_environments", macro_environments.json())
 
 request_body = {
@@ -34,10 +39,19 @@ request_body = {
 
 for endpoint in endpoints:
     # Build API URL
-    url = os.path.join(api_root, model, endpoint)
+    url = os.path.join(base_product_url, model, endpoint)
+
+    # Set header for authentication
+    headers = {"X-BLOBR-KEY": primary_api_key}
 
     # Send the POST request
-    response = requests.post(url, json=request_body)
+    response = requests.post(url, json=request_body, headers=headers)
+
+    if response.status_code == 401:
+        # needed for API Key Rotation
+        # More info: https://www.blobr.io/post/api-keys-best-practices
+        headers = {"X-BLOBR-KEY": secondary_api_key}
+        response = requests.post(url, json=request_body, headers=headers)
 
     # Check the response status code
     if response.status_code == 200:

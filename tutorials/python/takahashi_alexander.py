@@ -8,7 +8,7 @@ base_product_url = "https://base-product-url.app"
 primary_api_key = "needed-for-authentication"
 secondary_api_key = "needed-for-authentication"
 
-# from api_root import primary_api_key, secondary_api_key, base_product_url
+from api_root import primary_api_key, secondary_api_key, base_product_url
 
 
 # TAKAHASHI ALEXANDER (2002) MODEL
