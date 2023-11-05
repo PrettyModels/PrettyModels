@@ -4,7 +4,7 @@ Takahashi Alexander
 Introduction
 ------------
 
-This document explains how to use the Takahashi Alexaner endpoints of the **Private Equity Model API** provided by prettymodels.ai.
+This document explains how to use the Takahashi Alexander endpoints of the **Private Equity Model API** provided by [prettymodels.ai](https://prettymodels.ai). The original model has been published by [Takahashi and Alexander (2002)](https://doi.org/10.3905/jpm.2002.319836) in the *Journal of Portfolio Management* article titled 'Illiquid Alternative Asset Fund Modeling'.
 
 Set API Base URL & API keys
 ---------------------------
