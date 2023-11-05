@@ -1,0 +1,144 @@
+Takahashi Alexander
+================
+
+Introduction
+------------
+
+This document explains how to use the Takahashi Alexaner endpoints of the **Private Equity Model API** provided by prettymodels.ai.
+
+Set API Base URL & API keys
+---------------------------
+
+``` r
+base_product_url <- "https://base-product-url.app"
+primary_api_key <- "needed-for-authentication"
+secondary_api_key <- "needed-for-authentication"
+```
+
+Define the API request bodies
+-----------------------------
+
+The Takahashi Alexander (2002) model has the following parameters:
+
+-   **rate\_of\_contribution**: how fast should the fund draw the open commitment at the fund start
+-   **investment\_period\_end**: how long can the fund call the open fund commitmennt
+-   **fund\_lifetime**: when will the fund be completetely liquidtated
+-   **growth\_rate**: what is the annual fund return (i.e., internal rate of return)
+-   **annual\_yield**: what is the minimum distribution percentage per period
+-   **bow\_factor**: how are the distributions distributed over the fund life time (higher bow\_factor -&gt; later distributions, lower bow\_factor -&gt; earlier distributions)
+
+**Please enter your own parameter assumptions!**
+
+``` r
+# Define the request body
+
+request_body_cash_flow_expectations <- list(
+  rate_of_contribution = 0.3,
+  investment_period_end = 5,
+  fund_lifetime = 13,
+  growth_rate = 0.1,
+  annual_yield = 0,
+  bow_factor = 2.5,
+  cumulative_output = TRUE,
+  commitment = 100
+)
+
+request_body_commitment_planner <- list(
+  rate_of_contribution = 0.3,
+  investment_period_end = 5,
+  fund_lifetime = 13,
+  growth_rate = 0.1,
+  annual_yield = 0,
+  bow_factor = 2.5,
+  cumulative_output = TRUE,
+  future_commitment_list = list(
+    list(time = 0, commitment = 100),
+    list(time = 1, commitment = 100),
+    list(time = 2, commitment = 100),
+    list(time = 3, commitment = 100)
+    )
+)
+```
+
+R Code to send API requests
+---------------------------
+
+You can include R code in the document as follows:
+
+``` r
+# Choose one of these three endpoints
+endpoints = list(
+  "ta_02/cash_flow_expectations",
+  "ta_02/commitment_planner"
+)
+
+download.plot.ta_02 <- function(endpoint) {
+  
+  # select correct request body
+  if (endpoint == "ta_02/cash_flow_expectations") {
+    request_body <- request_body_cash_flow_expectations
+  } else if (endpoint == "ta_02/commitment_planner") {
+    request_body <- request_body_commitment_planner
+  }
+  
+  # Build API URL
+  api_url <- paste0(base_product_url, endpoint)
+  
+  # Create the POST request
+  post_request <- httr::POST(api_url,
+                             add_headers(.headers = c("X-BLOBR-KEY" = primary_api_key)),
+                             body = request_body,
+                             encode = "json")
+  # print(post_request)
+  
+  # Send the POST Request:
+  response <- httr::content(post_request, "parsed")
+  # print(response)
+  
+  # Convert to data.frame
+  df <- data.frame(lapply(response, unlist))
+  # print(df)
+  
+  # Plot data.fame containing results
+  matplot(
+    rownames(df), df, 
+    type = "l", lty = 1, 
+    xlab = "Time", ylab = "Value", 
+    col = 1:ncol(df), lwd=2,
+    main=endpoint
+  )
+  legend(
+    "bottomright", bty="n", legend = colnames(df), 
+    col = 1:ncol(df), lty=1, cex=1, lwd=2
+  )
+  abline(h=0, col="grey", lty=3, lwd=2)
+  
+  invisible(df)
+}
+
+# for (endpoint in endpoints) df <- download.plot.ta_02(endpoint)
+```
+
+Takahashi Alexander - Cash Flow Expectations
+--------------------------------------------
+
+This endpoint generates generic cash flow paths for one private equity fund using the famous Takahashi Alexander (2002) model.
+
+``` r
+download.plot.ta_02("ta_02/cash_flow_expectations")
+```
+
+![](takahashi_alexander_files/figure-markdown_github/ta_02/cash_flow_expectations-1.png)
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
+Takahashi Alexander - Commitment Planner
+----------------------------------------
+
+This endpoints aggregates the cash flows of multiple funds which can be used for future commitment planning.
+
+``` r
+download.plot.ta_02("ta_02/commitment_planner")
+```
+
+![](takahashi_alexander_files/figure-markdown_github/ta_02/commitment_planner-1.png)

@@ -17,9 +17,9 @@ base_product_url <- "https://base-product-url.app"
 primary_api_key <- "needed-for-authentication"
 secondary_api_key <- "needed-for-authentication"
 
-# source("api_root.R")
+if (file.exists("api_root.R")) source("api_root.R")
 
-# Send API requets -----
+# Send API requests -----
 
 # Choose one of these three endpoints
 endpoints = list(
