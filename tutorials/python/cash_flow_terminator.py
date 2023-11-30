@@ -20,7 +20,7 @@ endpoints = [
     "cash_flow_paths",
 ]
 
-# Define the data to be sent in the request body (as a dictionary)
+# Check available fund_segments and macro_environments
 fund_segments = requests.get(os.path.join(base_product_url, "common/fund_segments"))
 print("fund_segments", fund_segments.json())
 macro_environments = requests.get(
@@ -28,6 +28,7 @@ macro_environments = requests.get(
 )
 print("macro_environments", macro_environments.json())
 
+# Define the data to be sent in the request body (as a dictionary)
 request_body = {
     "fund_segment": fund_segments.json()[0],
     "start_age": 0,
