@@ -15,11 +15,17 @@ import pandas as pd
 
 ```python
 # Define the API root URL
+
+# EVERY USER NEEDS TO DO THIS !!!
+
 base_product_url = "https://base-product-url.app"
 primary_api_key = "needed-for-authentication"
 secondary_api_key = "needed-for-authentication"
 
-from api_root import primary_api_key, secondary_api_key, base_product_url
+if (base_product_url == "https://base-product-url.app") {
+    warn("You need to set the correct base_product_url and primary_api_key!")
+    from api_root import primary_api_key, secondary_api_key, base_product_url
+}
 ```
 
 ## Available endpoints in the CFT module
