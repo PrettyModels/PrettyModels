@@ -3,7 +3,13 @@
 ## Introduction
 
 This document explains how to use the Deal Exit Simulator endpoints of the **Private Equity Model API** provided by [prettymodels.ai](https://prettymodels.ai).
-Our model is based on [Tausch, Buchner, Schlüchtermann (2022)](https://doi.org/10.21314/JOR.2022.029)
+Our model is based on [Tausch, Buchner, Schlüchtermann (2022)](https://doi.org/10.21314/JOR.2022.029).
+
+Important assumptions:
+- per deal we model only one entry cash flow and exit cash flow
+- exit timing and exit multiple are dependent (i.e., not independent)
+- macroeconomic variables influence the extit timing and the exit multiple
+- our model follows a reduced-form approach (not a strucutral approach, compare to [credit risk models]( https://doi.org/10.1002/9781119201892.ch6))
 
 
 ## Setup Python and API keys
@@ -43,7 +49,7 @@ model = "tbs_22"
 
 endpoints = [
     "cash_flow_expectations",
-    "cash_flow_quantiles?quantile=0.1",
+    "cash_flow_quantiles?quantile=0.2", # enter your own quantile here as API query parameter
     "cash_flow_quantiles?quantile=0.5",
     "cash_flow_quantiles?quantile=0.9",
     "cash_flow_paths",
@@ -146,7 +152,7 @@ for endpoint in endpoints:
 ```
 
     POST request successful: cash_flow_expectations
-    POST request successful: cash_flow_quantiles?quantile=0.1
+    POST request successful: cash_flow_quantiles?quantile=0.2
     POST request successful: cash_flow_quantiles?quantile=0.5
     POST request successful: cash_flow_quantiles?quantile=0.9
     POST request successful: cash_flow_paths

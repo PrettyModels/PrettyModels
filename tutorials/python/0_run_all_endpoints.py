@@ -5,11 +5,21 @@ import cash_flow_terminator
 import deal_exit_simulator
 import takahashi_alexander
 
-print("run all endpoints successfully:")
+print("--- run all endpoints successfully:")
 print(ai_return_nowcaster.model, ai_return_nowcaster.endpoints)
 print(cash_flow_terminator.model, cash_flow_terminator.endpoints)
 print(deal_exit_simulator.model, deal_exit_simulator.endpoints)
 print(takahashi_alexander.model, takahashi_alexander.endpoints)
+
+# Jupyter Notebooks
+modules = ["cash_flow_terminator", "deal_exit_simulator"]
+for module in modules:
+    print("--- execute jupyter notebook:", module)
+    cmd = f"jupyter nbconvert --to notebook --execute --inplace jupyter/{module}/{module}.ipynb"
+    os.system(cmd)
+    print("--- convert jupyter notebook to markdown file:", module)
+    os.system(f"jupyter nbconvert --to markdown jupyter/{module}/{module}.ipynb")
+    os.system(cmd)
 
 
 def cleanup():
