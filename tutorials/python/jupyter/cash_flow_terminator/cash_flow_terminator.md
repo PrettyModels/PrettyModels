@@ -1,5 +1,7 @@
 # Cash Flow Terminator Tutorial
 
+## Introduction
+
 This document explains how to use the Cash Flow Terminator endpoints of the **Private Equity Model API** provided by [prettymodels.ai](https://prettymodels.ai). Our proprietary model is based on publications by [De Malherbe (2004)](https://doi.org/10.1142/S0219024904002359) and [Buchner (2017)](https://doi.org/10.21314/JOR.2017.363).
 
 ## Setup Python and API keys
@@ -22,11 +24,13 @@ base_product_url = "https://base-product-url.app"
 primary_api_key = "needed-for-authentication"
 secondary_api_key = "needed-for-authentication"
 
-if (base_product_url == "https://base-product-url.app") {
-    warn("You need to set the correct base_product_url and primary_api_key!")
+if (base_product_url == "https://base-product-url.app"):
+    print("IMPORTANT: You need to MANUALLY set the correct base_product_url and primary_api_key!")
     from api_root import primary_api_key, secondary_api_key, base_product_url
-}
 ```
+
+    IMPORTANT: You need to MANUALLY set the correct base_product_url and primary_api_key!
+
 
 ## Available endpoints in the CFT module
 
@@ -62,7 +66,7 @@ print("macro_environments", macro_environments.json())
     macro_environments ['average', 'medium', 'super', 'good', 'bad', 'evil']
 
 
-## Define request body
+## Define the API request body
 
 Our Cash Flow Terminator model has the following parameters:
 
@@ -170,30 +174,30 @@ for endpoint in endpoints:
 
 
     
-![png](cash_flow_terminator_files/cash_flow_terminator_12_1.png)
+![png](cash_flow_terminator_files/cash_flow_terminator_13_1.png)
     
 
 
 
     
-![png](cash_flow_terminator_files/cash_flow_terminator_12_2.png)
+![png](cash_flow_terminator_files/cash_flow_terminator_13_2.png)
     
 
 
 
     
-![png](cash_flow_terminator_files/cash_flow_terminator_12_3.png)
+![png](cash_flow_terminator_files/cash_flow_terminator_13_3.png)
     
 
 
 
     
-![png](cash_flow_terminator_files/cash_flow_terminator_12_4.png)
+![png](cash_flow_terminator_files/cash_flow_terminator_13_4.png)
     
 
 
 
     
-![png](cash_flow_terminator_files/cash_flow_terminator_12_5.png)
+![png](cash_flow_terminator_files/cash_flow_terminator_13_5.png)
     
 
