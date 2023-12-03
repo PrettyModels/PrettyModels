@@ -12,7 +12,12 @@ print(deal_exit_simulator.model, deal_exit_simulator.endpoints)
 print(takahashi_alexander.model, takahashi_alexander.endpoints)
 
 # Jupyter Notebooks
-modules = ["cash_flow_terminator", "deal_exit_simulator"]
+modules = [
+    "cash_flow_terminator",
+    "deal_exit_simulator",
+    "ai_return_nowcaster",
+    "takahashi_alexander",
+]
 for module in modules:
     print("--- execute jupyter notebook:", module)
     cmd = f"jupyter nbconvert --to notebook --execute --inplace jupyter/{module}/{module}.ipynb"
