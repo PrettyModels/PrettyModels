@@ -2,13 +2,10 @@ import os
 import requests
 import pandas as pd
 
-# Define base_product_url, primary_api_key, and secondary_api_key
-# Retrieve from API portal under Product catalog / Takahashi Alexander - Authentication
-base_product_url = "https://base-product-url.app"
+# Define the API root URL
+base_product_url = "https://monkfish-app-xcac2.ondigitalocean.app/"
 primary_api_key = "needed-for-authentication"
 secondary_api_key = "needed-for-authentication"
-
-from api_root import primary_api_key, secondary_api_key, base_product_url
 
 
 # TAKAHASHI ALEXANDER (2002) MODEL

@@ -3,11 +3,9 @@ import requests
 import pandas as pd
 
 # Define the API root URL
-base_product_url = "https://base-product-url.app"
+base_product_url = "https://monkfish-app-xcac2.ondigitalocean.app/"
 primary_api_key = "needed-for-authentication"
 secondary_api_key = "needed-for-authentication"
-
-from api_root import primary_api_key, secondary_api_key, base_product_url
 
 # AI RETURN NOWCASTER MODEL
 model = "air_nowcaster"
