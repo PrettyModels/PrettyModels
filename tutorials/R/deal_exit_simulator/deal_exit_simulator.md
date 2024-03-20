@@ -96,8 +96,10 @@ download.plot.tbs_22 <- function(endpoint) {
 
     x <- seq(-10, 20, 0.1)
     
+    color <- "red"
+    par(col = color, col.axis = color, col.lab = color, col.main = color, col.sub = color, fg = color)
     par(mfrow = c(1, 2))
-    
+
     plot(x, dnorm(x, mean= df["timing", "mean"], sd = df["timing", "stdv"]), 
          ylab = "density", main = "Timing", type = "l", lty = 3)
     abline(v = df["timing", "mean"], col = "blue", lwd = 2)
@@ -178,7 +180,7 @@ df <- download.plot.tbs_22(endpoint = "tbs_22/exit_timing_multiple_mean_stdv")
 ```
 
     ##              mean     stdv
-    ## timing   6.346675 3.893246
-    ## multiple 2.266060 5.066372
+    ## timing   6.369813 3.868756
+    ## multiple 2.377854 5.177130
 
 ![](deal_exit_simulator_files/figure-gfm/send%20API%20requests%20mean%20stdv-1.png)<!-- -->
