@@ -1,26 +1,28 @@
 AI Return Nowcaster - SDF Price Range
 ================
 
-Introduction
-------------
+## Introduction
 
-This document explains how to use the AI Return Nowcaster **Stochastic Discount Factor (SDF) Price Range** endpoint of the **Private Equity Model API** provided by [prettymodels.ai](https://prettymodels.ai). Our SDF price range endpoint combines the publications of
+This document explains how to use the AI Return Nowcaster **Stochastic
+Discount Factor (SDF) Price Range** endpoint of the **Private Equity
+Model API** provided by [prettymodels.ai](https://prettymodels.ai). Our
+SDF price range endpoint combines the publications of
 
--   [Driessen, Lin, Phalippou (2012)](https://doi.org/10.1017/S0022109012000221)
--   [Ang, Chen, Goetzmann, Phalippou (2018)](https://doi.org/10.1111/jofi.12688)
--   [Brown, Ghysels, Gredil (2023)](https://doi.org/10.1093/rfs/hhac045)
+- [Driessen, Lin, Phalippou
+  (2012)](https://doi.org/10.1017/S0022109012000221)
+- [Ang, Chen, Goetzmann, Phalippou
+  (2018)](https://doi.org/10.1111/jofi.12688)
+- [Brown, Ghysels, Gredil (2023)](https://doi.org/10.1093/rfs/hhac045)
 
-Set API Base URL & API keys
----------------------------
+## Set API Base URL & API keys
 
 ``` r
-base_product_url <- "https://base-product-url.app"
+base_product_url <- "https://monkfish-app-xcac2.ondigitalocean.app/"
 primary_api_key <- "needed-for-authentication"
 secondary_api_key <- "needed-for-authentication"
 ```
 
-Get fund segments and macro environments
-----------------------------------------
+## Get fund segments and macro environments
 
 ``` r
 post_request <- httr::GET(url = paste0(base_product_url, "common/fund_segments"))
@@ -31,15 +33,18 @@ macro_environments <- unlist(content(post_request, "parsed"))
 # print(macro_environments)
 ```
 
-Define the API request body
----------------------------
+## Define the API request body
 
 Specify your input parameters in the request body:
 
--   **fund\_segment**: choose from \[BO, VC, PE, RE, PD, INF, NATRES, FOF\]
--   **macro\_environment**: choose from \[average, medium, super, good, bad, evil\]
--   **rf\_rate**: risk-free rate (0.01 corresponds to 1% risk-free rate p.a.)
--   **list\_input**: list of dicts containing the cash flows you want to price \[{"cash\_flow\_amount": 100, "exit\_time": 1}, {"cash\_flow\_amount": 50, "exit\_time": 2}, ...\]
+- **fund_segment**: choose from \[BO, VC, PE, RE, PD, INF, NATRES, FOF\]
+- **macro_environment**: choose from \[average, medium, super, good,
+  bad, evil\]
+- **rf_rate**: risk-free rate (0.01 corresponds to 1% risk-free rate
+  p.a.)
+- **list_input**: list of dicts containing the cash flows you want to
+  price \[{“cash_flow_amount”: 100, “exit_time”: 1},
+  {“cash_flow_amount”: 50, “exit_time”: 2}, …\]
 
 **Please enter your own parameter assumptions!**
 
@@ -58,10 +63,10 @@ request_body <- list(
 )
 ```
 
-Send endpoint request
----------------------
+## Send endpoint request
 
-This endpoint provides a short-term return nowcast for a portfolio of private capital funds.
+This endpoint provides a short-term return nowcast for a portfolio of
+private capital funds.
 
 ``` r
 # Select endpoint
@@ -106,4 +111,4 @@ df <- data.frame(lapply(response, unlist))
   legend("topright", bty="n", legend = "expected price", col="green", lwd=2, lty=1)
 ```
 
-![](sdf_price_range_files/figure-markdown_github/send%20endpoint%20request-1.png)
+![](sdf_price_range_files/figure-gfm/send%20endpoint%20request-1.png)<!-- -->

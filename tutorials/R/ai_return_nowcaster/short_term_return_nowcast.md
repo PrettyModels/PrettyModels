@@ -1,22 +1,23 @@
 AI Return Nowcaster - Short-term Return Nowcast
 ================
 
-Introduction
-------------
+## Introduction
 
-This document explains how to use the AI Return Nowcaster **Short-term Return Nowcast** endpoint of the **Private Equity Model API** provided by [prettymodels.ai](https://prettymodels.ai). Our Short-term Return Nowcast endpoint is based on our proprietary AI/ML engine for simulating private equity fund returns.
+This document explains how to use the AI Return Nowcaster **Short-term
+Return Nowcast** endpoint of the **Private Equity Model API** provided
+by [prettymodels.ai](https://prettymodels.ai). Our Short-term Return
+Nowcast endpoint is based on our proprietary AI/ML engine for simulating
+private equity fund returns.
 
-Set API Base URL & API keys
----------------------------
+## Set API Base URL & API keys
 
 ``` r
-base_product_url <- "https://base-product-url.app"
+base_product_url <- "https://monkfish-app-xcac2.ondigitalocean.app/"
 primary_api_key <- "needed-for-authentication"
 secondary_api_key <- "needed-for-authentication"
 ```
 
-Get fund segments and macro environments
-----------------------------------------
+## Get fund segments and macro environments
 
 ``` r
 post_request <- httr::GET(url = paste0(base_product_url, "common/fund_segments"))
@@ -27,15 +28,14 @@ macro_environments <- unlist(content(post_request, "parsed"))
 # print(macro_environments)
 ```
 
-Define the API request body
----------------------------
+## Define the API request body
 
 Our model has the following parameters:
 
 Specify your input parameters in the request body:
 
--   **fund\_segment**: choose from \[BO, VC, PE, RE, PD, INF, NATRES, FOF\]
--   **number\_funds**: number of funds in the portfolio
+- **fund_segment**: choose from \[BO, VC, PE, RE, PD, INF, NATRES, FOF\]
+- **number_funds**: number of funds in the portfolio
 
 **Please enter your own parameter assumptions!**
 
@@ -48,10 +48,10 @@ request_body <- list(
 )
 ```
 
-Send endpoint request
----------------------
+## Send endpoint request
 
-This endpoint provides a short-term return nowcast for a portfolio of private capital funds.
+This endpoint provides a short-term return nowcast for a portfolio of
+private capital funds.
 
 ``` r
 endpoint <- "air_nowcaster/short_term_return_nowcast"
@@ -87,4 +87,4 @@ df <- data.frame(lapply(response, unlist))
   legend("bottomright", bty = "n", legend = "expected return", col = "blue", lwd = 2, lty = 3)
 ```
 
-![](short_term_return_nowcast_files/figure-markdown_github/send%20endpoint%20request-1.png)
+![](short_term_return_nowcast_files/figure-gfm/send%20endpoint%20request-1.png)<!-- -->

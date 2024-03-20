@@ -13,12 +13,9 @@ if (!require("httr", quietly = TRUE)) {
 
 # Set API Base URL & API keys -----
 
-base_product_url <- "https://base-product-url.app"
+base_product_url <- "https://monkfish-app-xcac2.ondigitalocean.app/"
 primary_api_key <- "needed-for-authentication"
 secondary_api_key <- "needed-for-authentication"
-
-if (file.exists("api_root.R")) source("api_root.R")
-
 
 # Send API requests ----
 # Retrieve available fund_segments and macro_environments

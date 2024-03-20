@@ -1,22 +1,23 @@
 Deal Exit Simulator
 ================
 
-Introduction
-------------
+## Introduction
 
-This document explains how to use the Deal Exit Simulator endpoints of the **Private Equity Model API** provided by [prettymodels.ai](https://prettymodels.ai). Our model is based on [Tausch, Buchner, Schlüchtermann (2022)](https://doi.org/10.21314/JOR.2022.029)
+This document explains how to use the Deal Exit Simulator endpoints of
+the **Private Equity Model API** provided by
+[prettymodels.ai](https://prettymodels.ai). Our model is based on
+[Tausch, Buchner, Schlüchtermann
+(2022)](https://doi.org/10.21314/JOR.2022.029)
 
-Set API Base URL & API keys
----------------------------
+## Set API Base URL & API keys
 
 ``` r
-base_product_url <- "https://base-product-url.app"
+base_product_url <- "https://monkfish-app-xcac2.ondigitalocean.app/"
 primary_api_key <- "needed-for-authentication"
 secondary_api_key <- "needed-for-authentication"
 ```
 
-Get fund segments and macro environments
-----------------------------------------
+## Get fund segments and macro environments
 
 ``` r
 post_request <- httr::GET(url = paste0(base_product_url, "common/fund_segments"))
@@ -27,20 +28,23 @@ macro_environments <- unlist(content(post_request, "parsed"))
 # print(macro_environments)
 ```
 
-Define the API request body
----------------------------
+## Define the API request body
 
 Specify your input parameters in the request body:
 
--   Performance:
-    -   **fund\_segment**: choose from \[BO, VC, PE, RE, PD, INF, NATRES, FOF\]
-    -   **macro\_environment**: choose from \[average, medium, super, good, bad, evil\]
--   Timing:
-    -   **deal\_age**: current deal age (in years)
-    -   **fund\_age\_at\_entry**: fund age at deal entry (in years)
--   Current Deal Multiples:
-    -   **current\_deal\_fmv**: current deal fmv (fair market value), all exit cash flow take this fmv as basis
-    -   **current\_deal\_rvpi**: current residual-value-to-paid-in ratio of the deal, i.e., fmv/cost
+- Performance:
+  - **fund_segment**: choose from \[BO, VC, PE, RE, PD, INF, NATRES,
+    FOF\]
+  - **macro_environment**: choose from \[average, medium, super, good,
+    bad, evil\]
+- Timing:
+  - **deal_age**: current deal age (in years)
+  - **fund_age_at_entry**: fund age at deal entry (in years)
+- Current Deal Multiples:
+  - **current_deal_fmv**: current deal fmv (fair market value), all exit
+    cash flow take this fmv as basis
+  - **current_deal_rvpi**: current residual-value-to-paid-in ratio of
+    the deal, i.e., fmv/cost
 
 **Please enter your own parameter assumptions!**
 
@@ -57,10 +61,10 @@ request_body <- list(
 )
 ```
 
-Function to connect to the Deal Exit Simulator API endpoints
-------------------------------------------------------------
+## Function to connect to the Deal Exit Simulator API endpoints
 
-This endpoint generates generic cash flow paths for a single private equity deal.
+This endpoint generates generic cash flow paths for a single private
+equity deal.
 
 ``` r
 download.plot.tbs_22 <- function(endpoint) {
@@ -126,50 +130,52 @@ download.plot.tbs_22 <- function(endpoint) {
 }
 ```
 
-Send API request for cash flows
--------------------------------
+## Send API request for cash flows
 
 ``` r
 df <- download.plot.tbs_22(endpoint = "tbs_22/cash_flow_quantiles?quantile=0.3")
 ```
 
-![](deal_exit_simulator_files/figure-markdown_github/send%20API%20requests%20cash%20flows-1.png)
+![](deal_exit_simulator_files/figure-gfm/send%20API%20requests%20cash%20flows-1.png)<!-- -->
 
 ``` r
 df <- download.plot.tbs_22(endpoint = "tbs_22/cash_flow_quantiles?quantile=0.9")
 ```
 
-![](deal_exit_simulator_files/figure-markdown_github/send%20API%20requests%20cash%20flows-2.png)
+![](deal_exit_simulator_files/figure-gfm/send%20API%20requests%20cash%20flows-2.png)<!-- -->
 
 ``` r
 df <- download.plot.tbs_22(endpoint = "tbs_22/cash_flow_quantiles?quantile=0.5")
 ```
 
-![](deal_exit_simulator_files/figure-markdown_github/send%20API%20requests%20cash%20flows-3.png)
+![](deal_exit_simulator_files/figure-gfm/send%20API%20requests%20cash%20flows-3.png)<!-- -->
 
 ``` r
 df <- download.plot.tbs_22(endpoint = "tbs_22/cash_flow_paths")
 ```
 
-![](deal_exit_simulator_files/figure-markdown_github/send%20API%20requests%20cash%20flows-4.png)
+![](deal_exit_simulator_files/figure-gfm/send%20API%20requests%20cash%20flows-4.png)<!-- -->
 
 ``` r
 df <- download.plot.tbs_22(endpoint = "tbs_22/cash_flow_expectations")
 ```
 
-![](deal_exit_simulator_files/figure-markdown_github/send%20API%20requests%20cash%20flows-5.png)
+![](deal_exit_simulator_files/figure-gfm/send%20API%20requests%20cash%20flows-5.png)<!-- -->
 
-Send API request for mean and standard deviation
-------------------------------------------------
+## Send API request for mean and standard deviation
 
-Note that our model **does not assume a normal distribution** for the deal exit multiple or timing! For the exit timing we assume a dynamic proportional hazard rate model with Weibull base hazard function. For the exit multiple we assume a Generalized Linear Model (GLM) with a Gamma distributed error term.
+Note that our model **does not assume a normal distribution** for the
+deal exit multiple or timing! For the exit timing we assume a dynamic
+proportional hazard rate model with Weibull base hazard function. For
+the exit multiple we assume a Generalized Linear Model (GLM) with a
+Gamma distributed error term.
 
 ``` r
 df <- download.plot.tbs_22(endpoint = "tbs_22/exit_timing_multiple_mean_stdv")
 ```
 
     ##              mean     stdv
-    ## timing   6.399987 3.915429
-    ## multiple 2.316508 5.082101
+    ## timing   6.433338 3.903091
+    ## multiple 2.313585 5.133420
 
-![](deal_exit_simulator_files/figure-markdown_github/send%20API%20requests%20mean%20stdv-1.png)
+![](deal_exit_simulator_files/figure-gfm/send%20API%20requests%20mean%20stdv-1.png)<!-- -->

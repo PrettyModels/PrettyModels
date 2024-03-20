@@ -1,22 +1,23 @@
 AI Return Nowcaster - NAV Discount
 ================
 
-Introduction
-------------
+## Introduction
 
-This document explains how to use the AI Return Nowcaster **Short-term Return Nowcast** endpoint of the **Private Equity Model API** provided by [prettymodels.ai](https://prettymodels.ai). Our NAV discount endpoint is based on the paper of [Nadauld, Sensoy, Vorkink, Weisbach (2019)](https://doi.org/10.1016/j.jfineco.2018.11.007).
+This document explains how to use the AI Return Nowcaster **Short-term
+Return Nowcast** endpoint of the **Private Equity Model API** provided
+by [prettymodels.ai](https://prettymodels.ai). Our NAV discount endpoint
+is based on the paper of [Nadauld, Sensoy, Vorkink, Weisbach
+(2019)](https://doi.org/10.1016/j.jfineco.2018.11.007).
 
-Set API Base URL & API keys
----------------------------
+## Set API Base URL & API keys
 
 ``` r
-base_product_url <- "https://base-product-url.app"
+base_product_url <- "https://monkfish-app-xcac2.ondigitalocean.app/"
 primary_api_key <- "needed-for-authentication"
 secondary_api_key <- "needed-for-authentication"
 ```
 
-Get fund segments and macro environments
-----------------------------------------
+## Get fund segments and macro environments
 
 ``` r
 post_request <- httr::GET(url = paste0(base_product_url, "common/fund_segments"))
@@ -27,14 +28,13 @@ macro_environments <- unlist(content(post_request, "parsed"))
 # print(macro_environments)
 ```
 
-Define the API request body
----------------------------
+## Define the API request body
 
 Specify your input parameters in the request body:
 
--   **fund\_segment**: choose from \[BO, VC, PE, RE, PD, INF, NATRES, FOF\]
--   **nav**: current fund Net Asset Value (NAV)
--   **age**: current fund age (in years)
+- **fund_segment**: choose from \[BO, VC, PE, RE, PD, INF, NATRES, FOF\]
+- **nav**: current fund Net Asset Value (NAV)
+- **age**: current fund age (in years)
 
 **Please enter your own parameter assumptions!**
 
@@ -48,10 +48,10 @@ request_body = list(
 )
 ```
 
-Send endpoint request
----------------------
+## Send endpoint request
 
-This endpoint provides a short-term return nowcast for a portfolio of private capital funds.
+This endpoint provides a short-term return nowcast for a portfolio of
+private capital funds.
 
 ``` r
 # Select endpoint 
@@ -82,4 +82,4 @@ barplot(as.matrix(df),
         ylim = c(0, max(df) *1.1))
 ```
 
-![](nav_discount_files/figure-markdown_github/send%20endpoint%20request-1.png)
+![](nav_discount_files/figure-gfm/send%20endpoint%20request-1.png)<!-- -->

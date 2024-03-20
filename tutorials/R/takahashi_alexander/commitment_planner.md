@@ -1,31 +1,40 @@
 Takahashi Alexander - Commitment Planner
 ================
 
-Introduction
-------------
+## Introduction
 
-This document explains how to use the Takahashi Alexander endpoints of the **Private Equity Model API** provided by [prettymodels.ai](https://prettymodels.ai). The original model has been published by [Takahashi and Alexander (2002)](https://doi.org/10.3905/jpm.2002.319836) in the *Journal of Portfolio Management* article titled 'Illiquid Alternative Asset Fund Modeling'.
+This document explains how to use the Takahashi Alexander endpoints of
+the **Private Equity Model API** provided by
+[prettymodels.ai](https://prettymodels.ai). The original model has been
+published by [Takahashi and Alexander
+(2002)](https://doi.org/10.3905/jpm.2002.319836) in the *Journal of
+Portfolio Management* article titled ‘Illiquid Alternative Asset Fund
+Modeling’.
 
-Set API Base URL & API keys
----------------------------
+## Set API Base URL & API keys
 
 ``` r
-base_product_url <- "https://base-product-url.app"
+base_product_url <- "https://monkfish-app-xcac2.ondigitalocean.app/"
 primary_api_key <- "needed-for-authentication"
 secondary_api_key <- "needed-for-authentication"
 ```
 
-Define the API request bodies
------------------------------
+## Define the API request bodies
 
 The Takahashi Alexander (2002) model has the following parameters:
 
--   **rate\_of\_contribution**: how fast should the fund draw the open commitment at the fund start
--   **investment\_period\_end**: how long can the fund call the open fund commitmennt
--   **fund\_lifetime**: when will the fund be completetely liquidtated
--   **growth\_rate**: what is the annual fund return (i.e., internal rate of return)
--   **annual\_yield**: what is the minimum distribution percentage per period
--   **bow\_factor**: how are the distributions distributed over the fund life time (higher bow\_factor -&gt; later distributions, lower bow\_factor -&gt; earlier distributions)
+- **rate_of_contribution**: how fast should the fund draw the open
+  commitment at the fund start
+- **investment_period_end**: how long can the fund call the open fund
+  commitmennt
+- **fund_lifetime**: when will the fund be completetely liquidtated
+- **growth_rate**: what is the annual fund return (i.e., internal rate
+  of return)
+- **annual_yield**: what is the minimum distribution percentage per
+  period
+- **bow_factor**: how are the distributions distributed over the fund
+  life time (higher bow_factor -\> later distributions, lower bow_factor
+  -\> earlier distributions)
 
 **Please enter your own parameter assumptions!**
 
@@ -49,10 +58,10 @@ request_body <- list(
 )
 ```
 
-Send API request
-----------------
+## Send API request
 
-This endpoints aggregates the cash flows of multiple funds which can be used for future commitment planning.
+This endpoints aggregates the cash flows of multiple funds which can be
+used for future commitment planning.
 
 ``` r
 # Choose endpoint
@@ -91,4 +100,4 @@ legend(
 abline(h=0, col="grey", lty=3, lwd=2)
 ```
 
-![](commitment_planner_files/figure-markdown_github/define%20download%20function-1.png)
+![](commitment_planner_files/figure-gfm/define%20download%20function-1.png)<!-- -->

@@ -23,20 +23,9 @@ Our NAV discount endpoint is based on the paper of [Nadauld, Sensoy, Vorkink, We
 ## Set API Base URL & API keys
 
 ```{r API base url and API keys}
-base_product_url <- "https://base-product-url.app"
+base_product_url <- "https://monkfish-app-xcac2.ondigitalocean.app/"
 primary_api_key <- "needed-for-authentication"
 secondary_api_key <- "needed-for-authentication"
-
-```
-
-```{r use Master Base URL, echo=FALSE}
-
-# this is not relevant for API users!
-file_name <- "api_root.R"
-  
-if (file.exists(file_name)) {
-source(file_name)
-  }
 
 ```
 
