@@ -112,8 +112,8 @@ download.plot.tbs_22 <- function(endpoint) {
     x <- seq(-10, 20, 0.1)
     
     color <- "red"
-    par(col = color, col.axis = color, col.lab = color, col.main = color, col.sub = color, fg = color)
-    par(mfrow = c(1, 2))
+    par(mfrow = c(1, 2),
+        col = color, col.axis = color, col.lab = color, col.main = color, col.sub = color, fg = color)
 
     plot(x, dnorm(x, mean= df["timing", "mean"], sd = df["timing", "stdv"]), 
          ylab = "density", main = "Timing", type = "l", lty = 3)
