@@ -108,6 +108,9 @@ download.plot.ta_02 <- function(endpoint) {
   # print(df)
   
   # Plot data.fame containing results
+  color <- "red"
+  par(col = color, col.axis = color, col.lab = color, col.main = color, col.sub = color, fg = color)
+
   matplot(
     rownames(df), df, 
     type = "l", lty = 1, 

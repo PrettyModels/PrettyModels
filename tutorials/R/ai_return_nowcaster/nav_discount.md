@@ -76,6 +76,9 @@ response <- httr::content(post_request, "parsed")
 df <- data.frame(lapply(response, unlist))
 
 # Plot data.fame containing results
+color <- "red"
+par(col = color, col.axis = color, col.lab = color, col.main = color, col.sub = color, fg = color)
+
 barplot(as.matrix(df), 
         xlab ="Net Asset Value", 
         main = "NAV Discount Analysis",

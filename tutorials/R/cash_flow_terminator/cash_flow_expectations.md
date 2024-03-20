@@ -112,6 +112,9 @@ download.plot.cft <- function(endpoint) {
   df <- data.frame(lapply(response, unlist))
   
   # Plot data.fame containing results
+  color <- "red"
+  par(col = color, col.axis = color, col.lab = color, col.main = color, col.sub = color, fg = color)
+
   matplot(
     rownames(df), df, 
     type = "l", lty = 1, 

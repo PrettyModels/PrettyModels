@@ -103,6 +103,9 @@ df <- data.frame(lapply(response, unlist))
   pdf_values <- dnorm(x, mean = m, sd = s)
   
   # Create the plot
+  color <- "red"
+  par(col = color, col.axis = color, col.lab = color, col.main = color, col.sub = color, fg = color)
+
   plot(x, pdf_values, type = "l", col = "blue", lwd = 2,
        xlab = "Fund Price (discounted cash flows)", 
        ylab = "PDF", main = "Fund Price Range")

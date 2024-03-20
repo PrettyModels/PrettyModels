@@ -112,6 +112,9 @@ download.plot.tbs_22 <- function(endpoint) {
     rownames(df) <- as.numeric(sub("X", "", rownames(df)))
     
     # Plot data.fame containing results
+    color <- "red"
+    par(col = color, col.axis = color, col.lab = color, col.main = color, col.sub = color, fg = color)
+
     matplot(
       rownames(df), df, 
       type = "l", lty = 1, 
@@ -175,7 +178,7 @@ df <- download.plot.tbs_22(endpoint = "tbs_22/exit_timing_multiple_mean_stdv")
 ```
 
     ##              mean     stdv
-    ## timing   6.355887 3.912165
-    ## multiple 2.334289 5.332023
+    ## timing   6.346675 3.893246
+    ## multiple 2.266060 5.066372
 
 ![](deal_exit_simulator_files/figure-gfm/send%20API%20requests%20mean%20stdv-1.png)<!-- -->

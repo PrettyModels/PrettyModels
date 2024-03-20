@@ -75,6 +75,9 @@ response <- httr::content(post_request, "parsed")
 df <- data.frame(lapply(response, unlist))
 
 # Plot data.fame containing results
+color <- "red"
+par(col = color, col.axis = color, col.lab = color, col.main = color, col.sub = color, fg = color)
+
   quarter <- 4
   df.q <- df[1:(nrow(df)-1), ]
   x <- as.numeric(sub("quantile_", "", rownames(df.q)))

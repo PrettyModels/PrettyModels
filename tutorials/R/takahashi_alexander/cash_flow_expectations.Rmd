@@ -5,7 +5,7 @@ output: github_document
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
-mycolor <- rgb(1, 1, 1, alpha = 0.5, names = "white-transparent")
+mycolor <- rgb(1, 1, 1, alpha = 0, names = "white-transparent")
 knitr::opts_chunk$set(dev.args=list(bg=mycolor))
 
 # install & load package "httr" to access API later
@@ -90,6 +90,9 @@ df <- data.frame(lapply(response, unlist))
 # print(df)
 
 # Plot data.fame containing results
+color <- "red"
+par(col = color, col.axis = color, col.lab = color, col.main = color, col.sub = color, fg = color)
+
 matplot(
   rownames(df), df, 
   type = "l", lty = 1, 
