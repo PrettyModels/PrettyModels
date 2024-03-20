@@ -1,11 +1,6 @@
 # Default ignored files
 /shelf/
 
-tutorials/python/api_root.py
-tutorials/R/api_root.R
-**/api_root.py
-**/api_root.R
-
 # file extensions
 *.csv
 *.xml

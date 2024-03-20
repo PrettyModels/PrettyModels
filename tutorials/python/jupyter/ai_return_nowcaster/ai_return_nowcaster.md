@@ -22,20 +22,8 @@ from scipy.stats import norm
 
 ```python
 # Define the API root URL
-
-# EVERY USER NEEDS TO DO THIS !!!
-
-base_product_url = "https://base-product-url.app"
-primary_api_key = "needed-for-authentication"
-secondary_api_key = "needed-for-authentication"
-
-if (base_product_url == "https://base-product-url.app"):
-    print("IMPORTANT: You need to MANUALLY set the correct base_product_url and primary_api_key!")
-    from api_root import primary_api_key, secondary_api_key, base_product_url
+from api_root import base_product_url
 ```
-
-    IMPORTANT: You need to MANUALLY set the correct base_product_url and primary_api_key!
-
 
 ## Available endpoints in the AI Return Nowcaster module
 
@@ -126,16 +114,10 @@ for endpoint in endpoints:
         raise ValueError(f"endpoint {endpoint} not defined.")
 
     # Set header for authentication
-    headers = {"X-BLOBR-KEY": primary_api_key}
+    headers = {"API-KEY": "not needed"}
 
     # Send the POST request
-    response = requests.post(url, json=request_body, headers=headers)
-
-    if response.status_code == 401:
-        # needed for API Key Rotation
-        # More info: https://www.blobr.io/post/api-keys-best-practices
-        headers = {"X-BLOBR-KEY": secondary_api_key}
-        response = requests.post(url, json=request_body, headers=headers)
+    response = requests.post(url, json=request_body)
 
     # Check the response status code
     if response.status_code == 200:
