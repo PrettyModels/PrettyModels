@@ -175,7 +175,7 @@ df <- download.plot.tbs_22(endpoint = "tbs_22/exit_timing_multiple_mean_stdv")
 ```
 
     ##              mean     stdv
-    ## timing   6.433338 3.903091
-    ## multiple 2.313585 5.133420
+    ## timing   6.382850 3.886087
+    ## multiple 2.331932 5.524378
 
 ![](deal_exit_simulator_files/figure-gfm/send%20API%20requests%20mean%20stdv-1.png)<!-- -->
