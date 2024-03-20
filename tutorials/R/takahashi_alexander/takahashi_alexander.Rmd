@@ -5,7 +5,8 @@ output: github_document
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
-knitr::opts_chunk$set(dev.args=list(bg="transparent"))
+mycolor <- rgb(1, 1, 1, alpha = 0.5, names = "white-transparent")
+knitr::opts_chunk$set(dev.args=list(bg=mycolor))
 
 # install & load package "httr" to access API later
 if (!require("httr", quietly = TRUE)) {
