@@ -1,5 +1,5 @@
 - 👋 Hi, I’m @PrettyModels
-- 👀 I’m interested in models for Private Equity (PE) funds
+- 👀 I’m interested in models for Public and Private Equity
 - 🌱 I’m currently learning how to model PE fund cash flows and returns
 - 💞️ I’m looking to collaborate on new AI/ML models
 - 📫 How to reach me ...
